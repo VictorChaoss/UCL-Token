@@ -2722,8 +2722,30 @@ body {
   margin-top: 36px;
 }
 
+/* Native-Style Mobile Bottom Tab Bar (Hidden on Desktop) */
+.mobile-bottom-nav {
+  display: none;
+}
+
+/* Support 100dvh on modern mobile browsers */
+@supports (height: 100dvh) {
+  html,
+  body,
+  .intro-screen,
+  .main-site {
+    height: 100dvh;
+  }
+}
+
+/* Disable tap flash & improve touch responsiveness */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 /* =========================================================
-   RESPONSIVE BREAKPOINTS
+   RESPONSIVE BREAKPOINTS (TABLET & MOBILE PERFECTION)
    ========================================================= */
 @media (max-width: 1080px) {
   .jumbotron-grid,
@@ -2734,6 +2756,12 @@ body {
     grid-template-columns: 1fr;
   }
 
+  .jumbo-stats-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
   .flywheel-pillars-grid,
   .bracket-columns {
     grid-template-columns: 1fr 1fr;
@@ -2741,59 +2769,611 @@ body {
 }
 
 @media (max-width: 820px) {
-  .broadcast-top,
-  .broadcast-bottom {
-    padding: 12px 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
+  .container {
+    padding: 0 14px;
+  }
+
+  /* ---- INTRO GATE MOBILE LAYOUT ---- */
+  .broadcast-top {
+    padding: max(10px, env(safe-area-inset-top)) 12px 6px;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
   }
 
   .broadcast-center-banner {
     order: -1;
     width: 100%;
     justify-content: center;
-    font-size: 0.65rem;
+    text-align: center;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    padding: 5px 10px;
   }
 
   .broadcast-top-right,
-  .broadcast-bottom-right,
+  .broadcast-bottom-left,
   .hide-md {
     display: none;
   }
 
-  .header-inner {
+  .broadcast-pill {
+    padding: 5px 12px;
+    font-size: 0.64rem;
+  }
+
+  .intro-centerpiece {
+    gap: clamp(8px, 1.8dvh, 18px);
+    padding: 0 12px;
+  }
+
+  .logo-stage {
+    width: clamp(165px, 29dvh, 250px);
+    height: clamp(155px, 27dvh, 235px);
+  }
+
+  .tagline-line {
+    width: 24px;
+  }
+
+  .tagline-text {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+  }
+
+  .enter-btn {
+    min-width: 0;
+    width: min(88vw, 310px);
+    padding: 14px 22px;
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
+  }
+
+  .intro-ca-box {
+    width: min(92vw, 360px);
+    justify-content: space-between;
+    gap: 6px;
+    padding: 5px 6px;
+  }
+
+  .intro-ca-badge {
+    font-size: 0.58rem;
+    padding: 3px 6px;
+    flex-shrink: 0;
+  }
+
+  .intro-ca-code {
+    font-size: 0.65rem;
+    max-width: 135px;
+  }
+
+  .intro-copy-btn,
+  .intro-pump-link {
+    font-size: 0.6rem;
+    padding: 5px 8px;
+    flex-shrink: 0;
+  }
+
+  .enter-subtext {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    line-height: 1.35;
+    max-width: 90vw;
+  }
+
+  .broadcast-bottom {
+    padding: 6px 12px max(10px, env(safe-area-inset-bottom));
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
   }
 
-  .primary-nav {
-    width: 100%;
-    overflow-x: auto;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    justify-content: space-around;
+  .broadcast-chip {
+    font-size: 0.6rem;
+    padding: 5px 9px;
+    letter-spacing: 0.1em;
   }
 
-  .nav-tab {
-    padding: 10px 12px;
-    font-size: 0.7rem;
+  .intro-anthem-toggle {
+    font-size: 0.64rem;
+  }
+
+  /* ---- MAIN SITE HEADER & BOTTOM APP BAR ON MOBILE ---- */
+  .live-ticker-bar {
+    height: 28px;
+    font-size: 0.64rem;
+  }
+
+  .ticker-badge {
+    padding: 0 10px;
+    font-size: 0.6rem;
+  }
+
+  .ucl-header {
+    border-bottom: 3px solid var(--ucl-gold);
+  }
+
+  .header-inner {
+    min-height: 54px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .brand-wedge {
+    padding: 6px 22px 6px 12px;
+    gap: 9px;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+  }
+
+  .brand-crest {
+    width: 34px;
+    height: 34px;
+  }
+
+  .brand-main {
+    font-size: 1.35rem;
+  }
+
+  .brand-sub {
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* Hide desktop top nav & sync badge; use bottom native tab bar instead */
+  .primary-nav,
+  .sync-badge {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 8px;
+    padding-right: 10px;
+  }
+
+  .header-pump-cta {
+    font-size: 0.66rem;
+    padding: 8px 11px;
+    box-shadow: 3px 3px 0 #000000;
+    white-space: nowrap;
+  }
+
+  .header-intro-btn {
+    font-size: 0.64rem;
+    padding: 7px 9px;
+    white-space: nowrap;
+  }
+
+  /* Scroll area bottom space for fixed bottom nav + floating audio pill */
+  .site-scroll-area {
+    padding-bottom: calc(126px + env(safe-area-inset-bottom));
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Native-style Bottom App Bar */
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(60px + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    background: rgba(3, 8, 26, 0.96);
+    backdrop-filter: blur(14px);
+    border-top: 3px solid var(--ucl-gold);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    z-index: 95;
+    box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.75);
+  }
+
+  .mob-nav-btn {
+    position: relative;
+    background: transparent;
+    border: none;
+    color: var(--ucl-silver-chrome);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-family: var(--font-broadcast);
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .mob-nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .mob-nav-btn.active {
+    background: var(--ucl-gold);
+    color: var(--ucl-midnight);
+  }
+
+  /* ---- JUMBOTRON SCOREBOARD ON MOBILE (HORIZONTAL BROADCAST LAYOUT) ---- */
+  .jumbotron-section {
+    padding: 16px 0 14px;
+  }
+
+  .jumbotron-grid {
+    gap: 14px;
+  }
+
+  .jumbotron-card {
+    border-width: 3px;
+    box-shadow: 6px 6px 0 #01030b;
+  }
+
+  .jumbo-topbar {
+    padding: 8px 12px;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .jumbo-stage-tag {
+    font-size: 0.58rem;
   }
 
   .jumbo-match-body {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 8px;
+    padding: 18px 10px;
     text-align: center;
   }
 
   .jumbo-team,
   .jumbo-team.away {
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 8px;
   }
 
-  .jumbo-team-info.right {
-    text-align: left;
+  .jumbo-team.away .jumbo-team-info.right {
+    order: 2;
+    text-align: center;
+    align-items: center;
+  }
+
+  .jumbo-team-info {
+    align-items: center;
+    text-align: center;
+  }
+
+  .jumbo-logo-img,
+  .jumbo-crest-badge {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+
+  .jumbo-club-name {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .jumbo-token-tag {
+    font-size: 0.56rem;
+    padding: 2px 6px;
+  }
+
+  .jumbo-score-pill {
+    font-size: 2.2rem;
+    padding: 4px 14px;
+    gap: 8px;
+    border-width: 2px;
+    box-shadow: 4px 4px 0 #000000;
+  }
+
+  .jumbo-match-clock {
+    font-size: 0.62rem;
+  }
+
+  .jumbo-deployment-footer {
+    padding: 10px 12px;
+  }
+
+  .deploy-progress-head {
+    font-size: 0.58rem;
+    flex-direction: column;
     align-items: flex-start;
+    gap: 3px;
+  }
+
+  .stat-poster {
+    padding: 14px 12px;
+    border-width: 3px;
+    box-shadow: 5px 5px 0 #01030b;
+  }
+
+  .poster-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+  }
+
+  .poster-big-value {
+    font-size: 2.1rem;
+  }
+
+  .poster-sub {
+    font-size: 0.64rem;
+    line-height: 1.3;
+  }
+
+  /* ---- PUMP.FUN CTA STRIP ON MOBILE ---- */
+  .pump-cta-strip {
+    padding: 6px 0 18px;
+  }
+
+  .pump-strip-inner {
+    padding: 14px;
+    gap: 12px;
+    box-shadow: 5px 5px 0 #000000;
+  }
+
+  .pump-ca-card {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .ca-mono-text {
+    font-size: 0.72rem;
+    padding: 6px 10px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .giant-pump-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 1.4rem;
+    padding: 12px 18px;
+  }
+
+  /* ---- FLYWHEEL SECTION ON MOBILE ---- */
+  .flywheel-container {
+    padding: 18px 14px;
+    border-width: 3px;
+    box-shadow: 6px 6px 0 #01030b;
+    gap: 18px;
+  }
+
+  .mechanics-title {
+    font-size: 1.85rem;
+  }
+
+  .mechanics-desc {
+    font-size: 0.82rem;
+  }
+
+  .flywheel-stage-box {
+    padding: 12px;
+  }
+
+  .stage-btn {
+    font-size: 0.62rem;
+    padding: 8px 6px;
+  }
+
+  .readout-item strong {
+    font-size: 1.2rem;
+  }
+
+  .flywheel-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .flywheel-pillar {
+    padding: 16px 14px;
+  }
+
+  /* ---- SWIPEABLE FILTER PILLS & MATCHES GRID ---- */
+  .live-matches-section,
+  .standings-section,
+  .spotlight-and-boot-section,
+  .token-terminal-section,
+  .clubs-directory-section,
+  .tournament-center-section {
+    padding: 16px 0 28px;
+  }
+
+  .section-heading {
+    font-size: 1.9rem;
+  }
+
+  .section-heading-sm {
+    font-size: 1.7rem;
+  }
+
+  .filter-pills,
+  .table-zone-legend {
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .filter-pills::-webkit-scrollbar,
+  .table-zone-legend::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-pill,
+  .legend-chip {
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    padding: 7px 12px;
+  }
+
+  .matches-grid,
+  .clubs-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* ---- 36-CLUB TABLE ON MOBILE ---- */
+  .hide-sm {
+    display: none;
+  }
+
+  .table-card {
+    border-width: 2px;
+    box-shadow: 5px 5px 0 #01030b;
+  }
+
+  .ucl-table {
+    font-size: 0.74rem;
+  }
+
+  .ucl-table th,
+  .ucl-table td {
+    padding: 8px 6px;
+  }
+
+  .col-pos {
+    width: 30px;
+    font-size: 1.1rem;
+  }
+
+  .club-cell {
+    gap: 6px;
+    max-width: 130px;
+  }
+
+  .club-cell span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .club-logo-img,
+  .mini-club-crest {
+    width: 22px;
+    height: 22px;
+    font-size: 0.68rem;
+  }
+
+  .ticker-badge-cell {
+    font-size: 0.62rem;
+    padding: 2px 5px;
+  }
+
+  .status-tag {
+    font-size: 0.56rem;
+    padding: 3px 5px;
+  }
+
+  /* ---- SPOTLIGHT, GOLDEN BOOT & TOKEN TAB ON MOBILE ---- */
+  .spotlight-poster-card {
+    padding: 16px 14px;
+    min-height: 150px;
+  }
+
+  .spotlight-club-title {
+    font-size: 1.75rem;
+  }
+
+  .spotlight-bottom-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .boot-row {
+    grid-template-columns: 28px 1fr 54px 54px;
+    padding: 9px 10px;
+  }
+
+  .boot-player-name {
+    font-size: 0.78rem;
+  }
+
+  .token-hero-card {
+    padding: 20px 16px;
+    border-width: 3px;
+    gap: 20px;
+  }
+
+  .token-metrics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .metric-tile {
+    padding: 14px 12px;
+  }
+
+  .metric-val {
+    font-size: 1.75rem;
   }
 
   .bracket-columns {
     grid-template-columns: 1fr;
   }
+
+  /* ---- FLOATING ANTHEM WIDGET DOCKED ABOVE MOBILE TAB BAR ---- */
+  .floating-anthem-widget {
+    bottom: calc(68px + env(safe-area-inset-bottom));
+    right: 12px;
+  }
+
+  .anthem-toggle-btn {
+    padding: 7px 11px;
+    gap: 8px;
+    border-width: 2px;
+    box-shadow: 4px 4px 0 #000000;
+  }
+
+  .anthem-ball-icon {
+    font-size: 1.05rem;
+  }
+
+  .anthem-title {
+    font-size: 0.9rem;
+  }
+
+  .anthem-status {
+    font-size: 0.54rem;
+  }
+
+  .anthem-play-glyph {
+    width: 24px;
+    height: 24px;
+    font-size: 0.7rem;
+  }
 }
+
+/* Extra compact adjustments for small phones (iPhone SE / 360px wide) */
+@media (max-width: 390px) {
+  .jumbo-stats-column {
+    grid-template-columns: 1fr;
+  }
+
+  .logo-stage {
+    width: clamp(145px, 25dvh, 200px);
+    height: clamp(140px, 24dvh, 190px);
+  }
+
+  .jumbo-club-name {
+    font-size: 1.05rem;
+  }
+
+  .jumbo-score-pill {
+    font-size: 1.85rem;
+    padding: 4px 10px;
+  }
+}
+

@@ -63,9 +63,9 @@
     height = canvas.height = window.innerHeight;
   });
 
-  window.addEventListener('mousemove', (e) => {
-    const normX = (e.clientX / width - 0.5) * 2;
-    const normY = (e.clientY / height - 0.5) * 2;
+  function handlePointerTilt(clientX, clientY) {
+    const normX = (clientX / width - 0.5) * 2;
+    const normY = (clientY / height - 0.5) * 2;
     mouseX = normX * 32;
     mouseY = normY * 32;
 
@@ -74,7 +74,21 @@
       const tiltY = normX * 10;
       logoStage.style.transform = `rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)`;
     }
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    handlePointerTilt(e.clientX, e.clientY);
   });
+
+  window.addEventListener(
+    'touchmove',
+    (e) => {
+      if (e.touches && e.touches[0] && !introScreen.classList.contains('warp-exit')) {
+        handlePointerTilt(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    },
+    { passive: true }
+  );
 
   function drawFivePointStar(cx, cy, outerRadius, rotation, color, alpha) {
     const innerRadius = outerRadius * 0.42;
@@ -1030,6 +1044,7 @@
   // 7. NAVIGATION TABS, FILTERS & COPY CA
   // =========================================================
   const navTabs = document.querySelectorAll('.nav-tab');
+  const mobNavBtns = document.querySelectorAll('.mob-nav-btn');
   const tabPanels = {
     home: document.getElementById('panel-home'),
     token: document.getElementById('panel-token'),
@@ -1039,6 +1054,7 @@
 
   function switchTab(tabKey) {
     navTabs.forEach((t) => t.classList.toggle('active', t.dataset.tab === tabKey));
+    mobNavBtns.forEach((b) => b.classList.toggle('active', b.dataset.tab === tabKey));
     Object.entries(tabPanels).forEach(([k, panel]) => {
       if (panel) panel.classList.toggle('active', k === tabKey);
     });
@@ -1049,6 +1065,18 @@
   navTabs.forEach((tab) => {
     tab.addEventListener('click', () => switchTab(tab.dataset.tab));
   });
+
+  mobNavBtns.forEach((btn) => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  const brandWedge = document.querySelector('.brand-wedge');
+  if (brandWedge) {
+    brandWedge.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchTab('home');
+    });
+  }
 
   document.querySelectorAll('[data-go-tab]').forEach((btn) => {
     btn.addEventListener('click', () => switchTab(btn.dataset.goTab));

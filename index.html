@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#020514" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>CHAMPIONS ON PUMP ($UCL) — Live Scores, 36-Club Table &amp; 24 Club Token Deployment</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png" />
@@ -795,17 +798,49 @@
       </footer>
     </div>
 
-    <!-- Floating Stadium Anthem Synth Player (Like WorldCupOnPump's Floating Ball Player) -->
+    <!-- Floating Stadium Anthem Player -->
     <div class="floating-anthem-widget" id="anthem-widget">
-      <button type="button" class="anthem-toggle-btn" id="anthem-play-btn" title="Play Champions Stadium Synth Fanfare">
+      <button type="button" class="anthem-toggle-btn" id="anthem-play-btn" title="Play Champions League Anthem">
         <span class="anthem-ball-icon">⚽</span>
         <div class="anthem-meta">
           <span class="anthem-title">CHAMPIONS NIGHTS</span>
-          <span class="anthem-status" id="anthem-status-label">PLAY STADIUM ANTHEM</span>
+          <span class="anthem-status" id="anthem-status-label">PLAY UCL ANTHEM</span>
         </div>
         <span class="anthem-play-glyph" id="anthem-play-glyph">▶</span>
       </button>
     </div>
+
+    <!-- Native-Style Mobile Bottom Tab Bar (Visible on Mobile & Tablet) -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+      <button type="button" class="mob-nav-btn active" data-tab="home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="mob-nav-icon">
+          <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>HOME</span>
+      </button>
+
+      <button type="button" class="mob-nav-btn" data-tab="token">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="mob-nav-icon">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 7v10M9.5 9.5h3.5a1.5 1.5 0 0 1 0 3h-2a1.5 1.5 0 0 0 0 3H14.5" stroke-linecap="round"/>
+        </svg>
+        <span>$UCL</span>
+      </button>
+
+      <button type="button" class="mob-nav-btn" data-tab="clubs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="mob-nav-icon">
+          <path d="M12 2l7 3v6c0 5.25-3.4 9.75-7 11-3.6-1.25-7-5.75-7-11V5l7-3z" stroke-linejoin="round"/>
+        </svg>
+        <span>CLUBS 36→24</span>
+      </button>
+
+      <button type="button" class="mob-nav-btn" data-tab="tournament">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="mob-nav-icon">
+          <path d="M6 4h4v6H6zM14 14h4v6h-4zM10 7h4v10h-4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>BRACKET</span>
+      </button>
+    </nav>
   </div>
 
   <script src="script.js"></script>
