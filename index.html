@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHAMPIONS ON PUMP ($UCL) — Live Scores, 36-Club Table &amp; 24 Club Token Deployment</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800;900&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- =========================================================
+       CHAMPIONS LEAGUE INTRO GATE SCREEN (FULL VIEWPORT)
+       ========================================================= -->
+  <section id="intro-screen" class="intro-screen" aria-label="Champions League Introduction">
+    <!-- Interactive Canvas: 3D Floating UCL Stars, Trophy Sparks & Floodlight Beams -->
+    <canvas id="stadium-canvas" class="stadium-canvas"></canvas>
+
+    <!-- Stadium Floodlight Cones -->
+    <div class="floodlights" aria-hidden="true">
+      <div class="floodlight-beam beam-left-outer"></div>
+      <div class="floodlight-beam beam-left-inner"></div>
+      <div class="floodlight-beam beam-right-inner"></div>
+      <div class="floodlight-beam beam-right-outer"></div>
+    </div>
+
+    <!-- 3D Perspective Football Pitch & Chalk Markings -->
+    <div class="stadium-pitch-floor" aria-hidden="true">
+      <div class="pitch-turf-stripes"></div>
+      <div class="pitch-lines">
+        <div class="pitch-halfway-line"></div>
+        <div class="pitch-center-circle"></div>
+        <div class="pitch-center-spot"></div>
+        <div class="pitch-penalty-arc"></div>
+      </div>
+    </div>
+
+    <!-- Atmospheric Stadium Vignette & Broadcast Ribbons -->
+    <div class="stadium-mist" aria-hidden="true"></div>
+    <div class="radial-vignette" aria-hidden="true"></div>
+
+    <!-- Top Matchday Broadcast Scoreboard Bar -->
+    <header class="broadcast-top">
+      <div class="broadcast-pill broadcast-top-left">
+        <span class="live-kickoff-dot"></span>
+        <span class="broadcast-meta">MATCHDAY LIVE // <strong>PUMP.FUN × $UCL</strong></span>
+      </div>
+
+      <div class="broadcast-center-banner">
+        <span class="banner-star">★</span>
+        <span class="broadcast-status" id="hud-status-text">THE ULTIMATE STAGE : FLOODLIGHTS ON</span>
+        <span class="banner-star">★</span>
+      </div>
+
+      <div class="broadcast-pill broadcast-top-right">
+        <span class="broadcast-meta" id="hud-telemetry">20:45 CET // KICK-OFF READY</span>
+      </div>
+    </header>
+
+    <!-- Main Centerpiece: 3D Spinning Champions League Crest + Enter CTA -->
+    <div class="intro-centerpiece">
+      <div class="logo-stage" id="logo-stage" title="Move mouse to tilt in 3D">
+        <!-- Royal Midnight & Silver Trophy Aura -->
+        <div class="trophy-glow-core"></div>
+
+        <!-- Champions League Broadcast Starball Orbits -->
+        <div class="ucl-ring ring-outer"></div>
+        <div class="ucl-ring ring-middle"></div>
+        <div class="ucl-ring ring-inner"></div>
+
+        <!-- 3D Dual-Sided Spinning Champions League Logo -->
+        <div class="logo-spinner" id="logo-spinner">
+          <div class="logo-face logo-front">
+            <img
+              src="LOGO Background Removed.png"
+              alt="UEFA Champions League Crest"
+              class="ucl-logo-img"
+              draggable="false"
+            />
+          </div>
+          <div class="logo-face logo-back">
+            <img
+              src="LOGO Background Removed.png"
+              alt="UEFA Champions League Crest"
+              class="ucl-logo-img"
+              draggable="false"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Enter Button & Matchday Tagline -->
+      <div class="enter-cta-wrapper">
+        <div class="tagline-pill">
+          <span class="tagline-line"></span>
+          <span class="tagline-stars">★ ★ ★</span>
+          <span class="tagline-text">THE CHAMPIONS ON PUMP.FUN</span>
+          <span class="tagline-stars">★ ★ ★</span>
+          <span class="tagline-line"></span>
+        </div>
+
+        <button id="enter-btn" class="enter-btn" type="button">
+          <span class="btn-sheen"></span>
+          <span class="btn-corner tl"></span>
+          <span class="btn-corner tr"></span>
+          <span class="btn-corner bl"></span>
+          <span class="btn-corner br"></span>
+          <span class="btn-content">
+            <svg class="btn-starball" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2l2.3 5.2L20 8l-4.2 3.8L17 17.5 12 14.4 7 17.5l1.2-5.7L4 8l5.7-.8L12 2z" />
+            </svg>
+            <span class="btn-label">ENTER THE STADIUM</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+
+        <!-- Intro Screen CA Bar -->
+        <div class="intro-ca-box">
+          <span class="intro-ca-badge">$UCL CA</span>
+          <code id="intro-ca-value" class="intro-ca-code">TBA — LAUNCHING EXCLUSIVELY ON PUMP.FUN</code>
+          <button id="intro-copy-ca-btn" class="intro-copy-btn" type="button">
+            <span id="intro-copy-ca-text">COPY</span>
+          </button>
+          <a
+            href="https://pump.fun"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="intro-pump-link"
+          >
+            PUMP.FUN ↗
+          </a>
+        </div>
+
+        <p class="enter-subtext" id="enter-subtext">
+          1 FLAGSHIP TOKEN NOW // <strong>AFTER 8 MATCHES: TOP 24 CLUBS DEPLOY AS TOKENS</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Matchday Broadcast Bar -->
+    <footer class="broadcast-bottom">
+      <div class="broadcast-pill broadcast-bottom-left">
+        <span class="broadcast-meta">36 CLUBS // <strong>8 LEAGUE MATCHES EACH</strong></span>
+      </div>
+
+      <div class="spin-controls" role="group" aria-label="Crest Camera Modes">
+        <button type="button" class="broadcast-chip active" data-spin="3d" title="3D Crest Spin">
+          ★ 3D SPIN
+        </button>
+        <button type="button" class="broadcast-chip" data-spin="orbit" title="Starball Gyro Orbit">
+          STARBALL ORBIT
+        </button>
+        <button type="button" class="broadcast-chip" data-spin="pulse" title="Trophy Broadcast Lock">
+          TROPHY VIEW
+        </button>
+      </div>
+
+      <div class="broadcast-pill broadcast-bottom-right">
+        <button type="button" id="intro-anthem-btn" class="intro-anthem-toggle">
+          🎵 PLAY UCL ANTHEM
+        </button>
+      </div>
+    </footer>
+  </section>
+
+  <!-- Official UEFA Champions League Broadcast Anthem Audio -->
+  <audio id="ucl-anthem-audio" preload="auto" loop>
+    <source src="https://www.myinstants.com/media/sounds/intro-uefa-champions-league2.mp3" type="audio/mpeg" />
+    <source src="ucl-anthem.wav" type="audio/wav" />
+  </audio>
+
+  <!-- =========================================================
+       MAIN CHAMPIONS LEAGUE HUB (REVEALED AFTER ENTERING STADIUM)
+       ========================================================= -->
+  <div id="main-site" class="main-site hidden" aria-hidden="true">
+    <!-- Live Matchday Broadcast Ticker -->
+    <div class="live-ticker-bar">
+      <div class="ticker-badge">
+        <span class="pulse-dot"></span>
+        LIVE UCL FEED
+      </div>
+      <div class="ticker-marquee">
+        <div class="ticker-track" id="live-ticker-track">
+          <span>★ <strong>$UCL</strong> FLAGSHIP MEMETOKEN LIVE ON PUMP.FUN</span>
+          <span>•</span>
+          <span>LEAGUE PHASE: <strong>36 CLUBS PLAY 8 MATCHES EACH</strong></span>
+          <span>•</span>
+          <span>WHEN ALL 8 MATCHES FINISH: <strong>RANKS 1–24 DEPLOY AS INDIVIDUAL CLUB TOKENS ON PUMP.FUN</strong></span>
+          <span>•</span>
+          <span>RANKS 25–36: <strong>ELIMINATED FROM EUROPE</strong></span>
+          <span>•</span>
+          <span>★ <strong>$UCL</strong> FLAGSHIP MEMETOKEN LIVE ON PUMP.FUN</span>
+          <span>•</span>
+          <span>LEAGUE PHASE: <strong>36 CLUBS PLAY 8 MATCHES EACH</strong></span>
+          <span>•</span>
+          <span>WHEN ALL 8 MATCHES FINISH: <strong>RANKS 1–24 DEPLOY AS INDIVIDUAL CLUB TOKENS ON PUMP.FUN</strong></span>
+          <span>•</span>
+          <span>RANKS 25–36: <strong>ELIMINATED FROM EUROPE</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Broadcast Header (Inspired by WorldCupOnPump + UCL Broadcast) -->
+    <header class="ucl-header">
+      <div class="header-inner">
+        <a href="#home" class="brand-wedge" data-nav-target="home">
+          <img src="LOGO Background Removed.png" alt="UCL Crest" class="brand-crest" />
+          <div class="brand-titles">
+            <span class="brand-main">CHAMPIONS<span class="gold-accent">PUMP</span></span>
+            <span class="brand-sub">$UCL // 36 CLUBS → 24 TOKENS</span>
+          </div>
+        </a>
+
+        <nav class="primary-nav" aria-label="Main Navigation">
+          <button type="button" class="nav-tab active" data-tab="home">
+            <span class="tab-star">★</span> HOME
+          </button>
+          <button type="button" class="nav-tab" data-tab="token">
+            $UCL TOKEN
+          </button>
+          <button type="button" class="nav-tab" data-tab="clubs">
+            CLUBS <span class="tab-pill">36 → 24</span>
+          </button>
+          <button type="button" class="nav-tab" data-tab="tournament">
+            MATCHES &amp; BRACKET
+          </button>
+        </nav>
+
+        <div class="header-actions">
+          <div class="sync-badge" id="api-sync-badge" title="Live Match Data Status">
+            <span class="sync-dot"></span>
+            <span id="api-sync-text">LIVE SCORES SYNCED</span>
+          </div>
+          <a href="https://pump.fun" target="_blank" rel="noopener noreferrer" class="header-pump-cta">
+            BUY $UCL ↗
+          </a>
+          <button id="replay-intro-btn" class="header-intro-btn" type="button" title="Replay 3D Stadium Intro">
+            ⟲ INTRO
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Scrollable Main Stage -->
+    <div class="site-scroll-area" id="site-scroll-area">
+
+      <!-- =====================================================
+           TAB 1: HOME (LIVE JUMBOTRON, PROTOCOL, SCORES, TABLE & GOLDEN BOOT)
+           ===================================================== -->
+      <div class="tab-panel active" id="panel-home">
+
+        <!-- Hero Jumbotron & Ecosystem Scoreboard (WorldCupOnPump Style) -->
+        <section class="jumbotron-section">
+          <div class="container">
+            <div class="jumbotron-grid">
+              <!-- Left: Live Matchday Jumbotron Card -->
+              <div class="jumbotron-card">
+                <div class="jumbo-topbar">
+                  <span class="jumbo-live-tag">
+                    <span class="live-red-dot"></span>
+                    FEATURED MATCHDAY CLASH // EUROPEAN NIGHTS
+                  </span>
+                  <span class="jumbo-stage-tag" id="jumbo-matchday-label">LEAGUE PHASE • MATCHDAY 8 COUNTDOWN</span>
+                </div>
+
+                <div class="jumbo-match-body" id="featured-match-box">
+                  <!-- Populated dynamically from live/featured match data -->
+                  <div class="jumbo-team home">
+                    <div class="jumbo-crest-badge" style="--club-bg: #FEBE10; --club-fg: #001C58;">RMA</div>
+                    <div class="jumbo-team-info">
+                      <span class="jumbo-club-name">Real Madrid</span>
+                      <span class="jumbo-token-tag">$RMA • QUALIFYING ZONE</span>
+                    </div>
+                  </div>
+
+                  <div class="jumbo-score-center">
+                    <div class="jumbo-score-pill">
+                      <span id="jumbo-home-score">3</span>
+                      <span class="score-divider">:</span>
+                      <span id="jumbo-away-score">2</span>
+                    </div>
+                    <span class="jumbo-match-clock" id="jumbo-match-status">LIVE • 84'</span>
+                  </div>
+
+                  <div class="jumbo-team away">
+                    <div class="jumbo-team-info right">
+                      <span class="jumbo-club-name">Manchester City</span>
+                      <span class="jumbo-token-tag">$MCI • PLAY-OFF ZONE</span>
+                    </div>
+                    <div class="jumbo-crest-badge" style="--club-bg: #6CABDD; --club-fg: #001838;">MCI</div>
+                  </div>
+                </div>
+
+                <!-- Matchday Progress Bar toward 8-Match Token Deployment -->
+                <div class="jumbo-deployment-footer">
+                  <div class="deploy-progress-head">
+                    <span>8-MATCH LEAGUE PHASE PROGRESS (TOKEN DEPLOYMENT TRIGGER)</span>
+                    <strong class="gold-text" id="matches-progress-label">MATCHDAY 8 // 24 CLUB TOKENS READY TO DEPLOY</strong>
+                  </div>
+                  <div class="deploy-progress-track">
+                    <div class="deploy-progress-fill" id="matches-progress-bar" style="width: 88%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: Stacked Stat Blocks (Like WorldCupOnPump Burned & Ecosystem MCap) -->
+              <div class="jumbo-stats-column">
+                <div class="stat-poster royal">
+                  <span class="poster-corner"></span>
+                  <div class="poster-label">PHASE 1 ACTIVE TOKEN</div>
+                  <div class="poster-big-value">$UCL</div>
+                  <div class="poster-sub">1 Flagship Memetoken During 8-Match League Phase</div>
+                </div>
+
+                <div class="stat-poster gold">
+                  <span class="poster-corner"></span>
+                  <div class="poster-label">DEPLOYED AFTER 8 MATCHES</div>
+                  <div class="poster-big-value">24 / 36 CLUBS</div>
+                  <div class="poster-sub">Top 24 Survive &amp; Launch as Pump.fun Tokens • 12 Eliminated</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Giant Pump.fun CTA Strip + CA Copy Box -->
+        <section class="pump-cta-strip">
+          <div class="container">
+            <div class="pump-strip-inner">
+              <div class="pump-ca-card">
+                <span class="ca-pill-label">OFFICIAL $UCL CONTRACT (CA)</span>
+                <code id="main-ca-value" class="ca-mono-text">TBA — OFFICIAL PUMP.FUN LAUNCH</code>
+                <button type="button" id="main-copy-ca-btn" class="ca-copy-button">COPY CA</button>
+              </div>
+
+              <a href="https://pump.fun" target="_blank" rel="noopener noreferrer" class="giant-pump-btn">
+                <span>★ BUY $UCL ON PUMP.FUN</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- PUMP.FUN CREATOR FEE, BURN & 24-TOKEN DEPLOYMENT FLYWHEEL -->
+        <section class="mechanics-banner-section" id="flywheel-section">
+          <div class="container">
+            <div class="flywheel-container">
+              <div class="flywheel-top-header">
+                <div>
+                  <span class="mechanics-badge">★ PUMP.FUN CREATOR FEE FLYWHEEL // ZERO EXTRACTION ★</span>
+                  <h2 class="mechanics-title">
+                    100% OF CREATOR FEES FUND <span class="gold-text">$UCL BURNS</span>, <span class="gold-text">24 CLUB DEPLOYMENTS</span> &amp; <span class="gold-text">CHAMPION REWARDS</span>
+                  </h2>
+                  <p class="mechanics-desc">
+                    Every trade on <strong>$UCL</strong> (and on the <strong>24 Club Tokens</strong> deployed after Matchday 8) generates continuous <strong>Pump.fun Creator Fees</strong>. Instead of being pocketed, 100% of creator fees power a 4-stage tournament flywheel that burns <strong>$UCL</strong>, launches the 24 qualifying club tokens, and rewards holders through the Final.
+                  </p>
+                </div>
+
+                <!-- Interactive Stage Switcher for Fee Routing -->
+                <div class="flywheel-stage-box">
+                  <div class="stage-box-label">SELECT TOURNAMENT STAGE TO INSPECT FEE ROUTING:</div>
+                  <div class="stage-selector-btns" id="flywheel-stage-btns">
+                    <button type="button" class="stage-btn active" data-stage="1">01. 8-MATCH LEAGUE</button>
+                    <button type="button" class="stage-btn" data-stage="2">02. MD8 24-TOKEN DEPLOY</button>
+                    <button type="button" class="stage-btn" data-stage="3">03. KNOCKOUT BURNS</button>
+                    <button type="button" class="stage-btn" data-stage="4">04. THE FINAL CROWN</button>
+                  </div>
+                  <div class="stage-live-readout" id="flywheel-stage-readout">
+                    <div class="readout-item">
+                      <span>ACTIVE TOKENS</span>
+                      <strong id="fw-active-tokens">1 ($UCL FLAGSHIP)</strong>
+                    </div>
+                    <div class="readout-item">
+                      <span>$UCL BUY &amp; BURN</span>
+                      <strong class="gold" id="fw-burn-pct">50% OF FEES</strong>
+                    </div>
+                    <div class="readout-item">
+                      <span>24-CLUB DEPLOY / BUYBACK</span>
+                      <strong class="green" id="fw-deploy-pct">50% OF FEES</strong>
+                    </div>
+                    <div class="readout-item">
+                      <span>CLUBS ELIMINATED</span>
+                      <strong class="red" id="fw-elim-count">12 AT MATCH 8</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4-Pillar Flywheel Grid -->
+              <div class="flywheel-pillars-grid">
+                <article class="flywheel-pillar">
+                  <div class="pillar-head">
+                    <span class="pillar-num">01</span>
+                    <span class="pillar-tag">MATCHDAYS 1–8</span>
+                  </div>
+                  <h3>$UCL Volume → Fee Treasury</h3>
+                  <p>
+                    During the 8-match League Phase, <strong>$UCL</strong> is the sole flagship token. Every Pump.fun trade routes creator fees into the <strong>Champions Treasury</strong>: <strong>50%</strong> executes live <strong>$UCL Buybacks &amp; Burns</strong> on every matchday, and <strong>50%</strong> builds the deployment warchest for Matchday 8.
+                  </p>
+                  <div class="pillar-foot">FEES → 50% $UCL BURN + 50% MD8 DEPLOY POOL</div>
+                </article>
+
+                <article class="flywheel-pillar featured">
+                  <div class="pillar-head">
+                    <span class="pillar-num">02</span>
+                    <span class="pillar-tag gold">AFTER 8 MATCHES</span>
+                  </div>
+                  <h3>24 Club Tokens Deployed on Pump.fun</h3>
+                  <p>
+                    Once every club completes its 8th match, <strong>Ranks 25–36 are eliminated</strong>. The accumulated Creator Fee Treasury automatically deploys &amp; seeds the <strong>24 surviving clubs (Ranks 1–24)</strong> as official Pump.fun Club Tokens (<strong>$REAL, $BARCA, $LIV, $ARS</strong>, etc.).
+                  </p>
+                  <div class="pillar-foot">TREASURY SEEDS ALL 24 QUALIFYING CLUB TOKENS</div>
+                </article>
+
+                <article class="flywheel-pillar">
+                  <div class="pillar-head">
+                    <span class="pillar-num">03</span>
+                    <span class="pillar-tag">PLAY-OFFS → R16 → QF → SF</span>
+                  </div>
+                  <h3>Knockout Elimination Burns</h3>
+                  <p>
+                    All 24 deployed club tokens generate creator fees across the Knockout Bracket. Whenever a club is <strong>knocked out of Europe</strong>, tie creator fees trigger an immediate <strong>Elimination Burn on $UCL</strong> plus a <strong>Victory Buyback</strong> on the winning club’s token.
+                  </p>
+                  <div class="pillar-foot">EVERY KNOCKOUT TIE = $UCL BURN + WINNER BUYBACK</div>
+                </article>
+
+                <article class="flywheel-pillar">
+                  <div class="pillar-head">
+                    <span class="pillar-num">04</span>
+                    <span class="pillar-tag green">THE FINAL</span>
+                  </div>
+                  <h3>Champion Crown &amp; Holder Rewards</h3>
+                  <p>
+                    When 23 club tokens have been knocked out and <strong>1 European Champion</strong> lifts the trophy, the Finals Creator Fee Pool distributes <strong>Champion Rewards &amp; Buybacks</strong> directly to <strong>$UCL holders</strong> and holders of the winning Club Token.
+                  </p>
+                  <div class="pillar-foot">DESTINATION: $UCL HOLDERS &amp; CHAMPION CLUB HOLDERS</div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- LIVE GAMES & MATCHDAY RESULTS SECTION -->
+        <section class="live-matches-section" id="home-matches">
+          <div class="container">
+            <div class="section-head-row">
+              <div>
+                <span class="section-eyebrow">● REAL-TIME SCOREBOARD &amp; RESULTS</span>
+                <h2 class="section-heading">LIVE GAMES &amp; MATCHDAY RESULTS</h2>
+              </div>
+
+              <div class="filter-pills" id="home-match-filters">
+                <button type="button" class="filter-pill active" data-filter="all">ALL FEATURED</button>
+                <button type="button" class="filter-pill" data-filter="live">● LIVE / TODAY</button>
+                <button type="button" class="filter-pill" data-filter="ft">FULL TIME RESULTS</button>
+                <button type="button" class="filter-pill" data-filter="upcoming">UPCOMING</button>
+                <button type="button" class="filter-pill simulate-btn" id="simulate-goal-btn" title="Simulate a live match goal & update table">
+                  ⚡ SIMULATE LIVE GOAL
+                </button>
+              </div>
+            </div>
+
+            <!-- Live Matches Grid -->
+            <div class="matches-grid" id="home-matches-grid">
+              <!-- Populated by script.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- FULL 36-TEAM CHAMPIONS LEAGUE TABLE (WITH TOKEN DEPLOYMENT CUTOFF ZONES) -->
+        <section class="standings-section" id="home-standings">
+          <div class="container">
+            <div class="section-head-row">
+              <div>
+                <span class="section-eyebrow">★ 36-CLUB LEAGUE PHASE STANDINGS (8 MATCHES EACH)</span>
+                <h2 class="section-heading">OFFICIAL LEAGUE TABLE &amp; TOKEN DEPLOYMENT ZONES</h2>
+              </div>
+
+              <div class="table-zone-legend">
+                <span class="legend-chip zone-top8">
+                  <i class="dot"></i> 1–8: R16 + INSTANT TOKEN DEPLOY
+                </span>
+                <span class="legend-chip zone-playoff">
+                  <i class="dot"></i> 9–24: PLAY-OFFS + TOKEN DEPLOY
+                </span>
+                <span class="legend-chip zone-elim">
+                  <i class="dot"></i> 25–36: ELIMINATED (NO TOKEN)
+                </span>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <div class="table-responsive">
+                <table class="ucl-table" aria-label="UEFA Champions League 36-Club Table">
+                  <thead>
+                    <tr>
+                      <th class="col-pos">#</th>
+                      <th class="col-club">CLUB</th>
+                      <th class="col-ticker">TICKER</th>
+                      <th class="col-stat" title="Matches Played (out of 8)">PL</th>
+                      <th class="col-stat">W</th>
+                      <th class="col-stat">D</th>
+                      <th class="col-stat">L</th>
+                      <th class="col-stat hide-sm">GF:GA</th>
+                      <th class="col-stat">GD</th>
+                      <th class="col-pts">PTS</th>
+                      <th class="col-form hide-md">LAST 5</th>
+                      <th class="col-status">POST-MD8 TOKEN STATUS</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ucl-standings-tbody">
+                    <!-- Populated dynamically with all 36 clubs by script.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TOP SURVIVING CLUB GAINER / AT-RISK SPOTLIGHT + GOLDEN BOOT RACE -->
+        <section class="spotlight-and-boot-section">
+          <div class="container">
+            <div class="dual-feature-grid">
+              <!-- Left: Club Token Spotlight Cards (Like Top Gainer / Top Loser on WorldCupOnPump) -->
+              <div class="spotlight-column">
+                <span class="section-eyebrow">★ CLUB TOKEN DEPLOYMENT WATCH</span>
+                <h2 class="section-heading-sm">TOP SEED VS ELIMINATION CUTOFF</h2>
+
+                <div class="club-spotlight-stack" id="club-spotlight-stack">
+                  <!-- Populated by script.js -->
+                </div>
+
+                <button type="button" class="see-all-clubs-btn" data-go-tab="clubs">
+                  EXPLORE ALL 36 CLUBS &amp; 24 TOKEN SLOTS →
+                </button>
+              </div>
+
+              <!-- Right: Golden Boot Race Leaderboard -->
+              <div class="boot-column">
+                <span class="section-eyebrow">★ TOP SCORERS LEADERBOARD</span>
+                <h2 class="section-heading-sm">GOLDEN BOOT RACE</h2>
+
+                <div class="boot-board" id="golden-boot-board">
+                  <!-- Populated by script.js -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- =====================================================
+           TAB 2: $UCL TOKEN (DEDICATED TOKEN & DEPLOYMENT TERMINAL)
+           ===================================================== -->
+      <div class="tab-panel" id="panel-token">
+        <section class="token-terminal-section">
+          <div class="container">
+            <div class="token-hero-card">
+              <div class="token-hero-left">
+                <span class="section-eyebrow">★ FLAGSHIP ECOSYSTEM TOKEN ON PUMP.FUN</span>
+                <h1 class="token-big-title">$UCL — CHAMPIONS ON PUMP</h1>
+                <p class="token-lead">
+                  <strong>$UCL</strong> is the mother token of the entire Champions League on-chain tournament. During the 8-match League Phase, all volume and attention rally behind <strong>$UCL</strong>. The moment every team completes its <strong>8th League Phase match</strong>, the <strong>24 qualifying clubs (Ranks 1–24)</strong> are deployed on Pump.fun as individual Club Tokens while the bottom 12 clubs are eliminated forever.
+                </p>
+
+                <div class="token-ca-box">
+                  <div class="token-ca-label">CONTRACT ADDRESS (PUMP.FUN)</div>
+                  <div class="token-ca-row">
+                    <code id="token-tab-ca">TBA — OFFICIAL PUMP.FUN LAUNCH</code>
+                    <button type="button" id="token-tab-copy-btn" class="ca-copy-button">COPY ADDRESS</button>
+                  </div>
+                </div>
+
+                <div class="token-cta-row">
+                  <a href="https://pump.fun" target="_blank" rel="noopener noreferrer" class="giant-pump-btn">
+                    BUY $UCL ON PUMP.FUN ↗
+                  </a>
+                  <button type="button" class="secondary-action-btn" data-go-tab="clubs">
+                    VIEW 24 DEPLOYING CLUBS →
+                  </button>
+                </div>
+              </div>
+
+              <div class="token-hero-right">
+                <div class="token-metrics-grid">
+                  <div class="metric-tile">
+                    <span class="metric-name">STAGE 1 ASSET</span>
+                    <strong class="metric-val gold">$UCL FLAGSHIP</strong>
+                    <span class="metric-note">Live during Matchdays 1–8</span>
+                  </div>
+                  <div class="metric-tile">
+                    <span class="metric-name">LEAGUE PHASE CLUBS</span>
+                    <strong class="metric-val">36 TEAMS</strong>
+                    <span class="metric-note">8 Matches played per club</span>
+                  </div>
+                  <div class="metric-tile">
+                    <span class="metric-name">STAGE 2 TOKEN DEPLOYMENT</span>
+                    <strong class="metric-val green">24 CLUB TOKENS</strong>
+                    <span class="metric-note">Ranks 1–24 minted after Match 8</span>
+                  </div>
+                  <div class="metric-tile">
+                    <span class="metric-name">ELIMINATED AFTER MD8</span>
+                    <strong class="metric-val red">12 CLUBS OUT</strong>
+                    <span class="metric-note">Ranks 25–36 never deployed</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Creator Fee Routing & Knockout Burn Schedule -->
+            <div class="fee-schedule-block">
+              <div class="section-head-row">
+                <div>
+                  <span class="section-eyebrow">★ ON-CHAIN TREASURY &amp; FEE ROUTING PROTOCOL</span>
+                  <h2 class="section-heading">HOW PUMP.FUN CREATOR FEES POWER EVERY ROUND</h2>
+                </div>
+              </div>
+
+              <div class="table-card">
+                <div class="table-responsive">
+                  <table class="ucl-table" aria-label="Creator Fee Routing & Burn Schedule">
+                    <thead>
+                      <tr>
+                        <th>TOURNAMENT ROUND</th>
+                        <th>CLUBS ACTIVE</th>
+                        <th>CLUBS ELIMINATED</th>
+                        <th>CREATOR FEE SOURCE</th>
+                        <th>FEE ACTION &amp; HOLDER REWARD MECHANISM</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="row-top8">
+                        <td><strong>01. League Phase (8 Matches)</strong></td>
+                        <td><span class="ticker-badge-cell">36 CLUBS</span></td>
+                        <td class="col-stat">12 Eliminated at MD8</td>
+                        <td><strong>$UCL</strong> Flagship Volume</td>
+                        <td><strong>50% Auto-Buy &amp; Burn $UCL</strong> + <strong>50% Seeds the 24 Club Token Deployments</strong></td>
+                      </tr>
+                      <tr class="row-playoff">
+                        <td><strong>02. Post-MD8 Token Launch</strong></td>
+                        <td><span class="ticker-badge-cell">24 TOKENS DEPLOYED</span></td>
+                        <td class="col-stat">Ranks 25–36 Out</td>
+                        <td>Champions Fee Treasury</td>
+                        <td><strong>Top 24 Clubs</strong> minted on Pump.fun with initial dev buy &amp; ecosystem backing</td>
+                      </tr>
+                      <tr class="row-playoff">
+                        <td><strong>03. Knockout Play-Offs</strong></td>
+                        <td><span class="ticker-badge-cell">24 → 16 TOKENS</span></td>
+                        <td class="col-stat">8 Knocked Out</td>
+                        <td>$UCL + 24 Club Tokens</td>
+                        <td>8 eliminated ties trigger <strong>$UCL Elimination Burns</strong> + <strong>Advancing Club Buybacks</strong></td>
+                      </tr>
+                      <tr class="row-top8">
+                        <td><strong>04. Round of 16 &amp; Quarter-Finals</strong></td>
+                        <td><span class="ticker-badge-cell">16 → 8 → 4 TOKENS</span></td>
+                        <td class="col-stat">12 Knocked Out</td>
+                        <td>$UCL + R16/QF Tokens</td>
+                        <td>Continuous <strong>$UCL Buy &amp; Burn</strong> on every knockout + liquidity concentration into Final 4</td>
+                      </tr>
+                      <tr class="row-top8">
+                        <td><strong>05. Semi-Finals &amp; The Final</strong></td>
+                        <td><span class="ticker-badge-cell">4 → 2 → 1 CHAMPION</span></td>
+                        <td class="col-stat">35 Eliminated Total</td>
+                        <td>All Ecosystem Fees</td>
+                        <td><strong>Final Crown Payout:</strong> Treasury buybacks &amp; rewards routed to <strong>$UCL + Champion Club Holders</strong></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- =====================================================
+           TAB 3: CLUBS (36 LEAGUE CLUBS → 24 PUMP.FUN TOKENS)
+           ===================================================== -->
+      <div class="tab-panel" id="panel-clubs">
+        <section class="clubs-directory-section">
+          <div class="container">
+            <div class="clubs-header-banner">
+              <div>
+                <span class="section-eyebrow">★ ON-CHAIN CLUB ROSTER</span>
+                <h1 class="section-heading">THE 36 CLUBS — 24 SURVIVE TO BECOME TOKENS</h1>
+                <p class="section-subcopy">
+                  Every club plays 8 matches in the League Phase. Finish in the <strong>Top 24</strong> and your club gets deployed on Pump.fun as an official token for the Knockout Stage. Finish <strong>25th–36th</strong> and you go home.
+                </p>
+              </div>
+
+              <div class="clubs-summary-pills">
+                <div class="mini-stat-box">
+                  <span>QUALIFYING FOR TOKEN DEPLOY</span>
+                  <strong class="green">24 / 36</strong>
+                </div>
+                <div class="mini-stat-box">
+                  <span>DIRECT R16 SEEDS</span>
+                  <strong class="gold">TOP 8</strong>
+                </div>
+                <div class="mini-stat-box">
+                  <span>PLAY-OFF SEEDS</span>
+                  <strong class="cyan">RANKS 9–24</strong>
+                </div>
+                <div class="mini-stat-box">
+                  <span>ELIMINATED</span>
+                  <strong class="red">RANKS 25–36</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="clubs-Filter-bar">
+              <div class="filter-pills" id="clubs-zone-filters">
+                <button type="button" class="filter-pill active" data-club-filter="all">ALL 36 CLUBS</button>
+                <button type="button" class="filter-pill" data-club-filter="deploying">★ TOP 24 (DEPLOYING AS TOKENS)</button>
+                <button type="button" class="filter-pill" data-club-filter="top8">RANKS 1–8 (R16 SEEDS)</button>
+                <button type="button" class="filter-pill" data-club-filter="playoff">RANKS 9–24 (PLAY-OFFS)</button>
+                <button type="button" class="filter-pill" data-club-filter="eliminated">RANKS 25–36 (ELIMINATED)</button>
+              </div>
+            </div>
+
+            <div class="clubs-cards-grid" id="clubs-cards-grid">
+              <!-- Populated by script.js -->
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- =====================================================
+           TAB 4: MATCHES & KNOCKOUT BRACKET (ROAD TO THE FINAL)
+           ===================================================== -->
+      <div class="tab-panel" id="panel-tournament">
+        <section class="tournament-center-section">
+          <div class="container">
+            <div class="section-head-row">
+              <div>
+                <span class="section-eyebrow">★ ROAD TO MUNICH / THE ULTIMATE STAGE</span>
+                <h1 class="section-heading">24 DEPLOYED CLUB TOKENS → 1 CHAMPION</h1>
+                <p class="section-subcopy">
+                  Once all 8 League Phase matches conclude, the 24 deployed club tokens enter the high-stakes Knockout Bracket. Lose a tie and your club is knocked out; advance and march toward the Champions League Final.
+                </p>
+              </div>
+            </div>
+
+            <!-- Visual Knockout Bracket Progression -->
+            <div class="knockout-stage-banner" id="knockout-bracket-container">
+              <!-- Populated by script.js based on current Top 24 standings -->
+            </div>
+
+            <!-- All Matchday Fixtures & Results List -->
+            <div class="all-fixtures-block">
+              <div class="section-head-row">
+                <h2 class="section-heading-sm">ALL MATCHDAY FIXTURES &amp; LIVE SCORES</h2>
+                <button type="button" class="filter-pill" id="refresh-live-api-btn">
+                  ↻ SYNC LIVE UEFA SCORES
+                </button>
+              </div>
+              <div class="matches-grid" id="tournament-matches-grid">
+                <!-- Populated by script.js -->
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Site Footer -->
+      <footer class="ucl-footer">
+        <div class="container footer-flex">
+          <div class="footer-brand-col">
+            <img src="LOGO Background Removed.png" alt="UCL" class="footer-crest" />
+            <div>
+              <div class="footer-title">CHAMPIONS ON PUMP ($UCL)</div>
+              <p class="footer-disclaimer">
+                Independent community football &amp; memetoken experience on Pump.fun. Not affiliated with or endorsed by UEFA or any football club.
+              </p>
+            </div>
+          </div>
+          <div class="footer-links-col">
+            <span>1 FLAGSHIP TOKEN ($UCL)</span>
+            <span>•</span>
+            <span>8 MATCHES PER CLUB</span>
+            <span>•</span>
+            <span>TOP 24 DEPLOY AS TOKENS</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Floating Stadium Anthem Synth Player (Like WorldCupOnPump's Floating Ball Player) -->
+    <div class="floating-anthem-widget" id="anthem-widget">
+      <button type="button" class="anthem-toggle-btn" id="anthem-play-btn" title="Play Champions Stadium Synth Fanfare">
+        <span class="anthem-ball-icon">⚽</span>
+        <div class="anthem-meta">
+          <span class="anthem-title">CHAMPIONS NIGHTS</span>
+          <span class="anthem-status" id="anthem-status-label">PLAY STADIUM ANTHEM</span>
+        </div>
+        <span class="anthem-play-glyph" id="anthem-play-glyph">▶</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
